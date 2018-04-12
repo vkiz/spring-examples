@@ -1,0 +1,68 @@
+<!-- Deployment descriptor -->
+
+<!-- Default version:
+    <web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"> -->
+
+<!-- Change version (at least 2.5) to get JSP 2.1 worked
+     to support <trim-directive-whitespaces> property -->
+
+<!-- See examples of web.xml for different versions on:
+     https://www.mkyong.com/web-development/the-web-xml-deployment-descriptor-examples -->
+
+<web-app version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <display-name>Book Manager</display-name>
+
+    <servlet>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- Log4j 2 configuration -->
+    <!-- https://logging.apache.org/log4j/2.x/manual/configuration.html
+         https://logging.apache.org/log4j/2.x/manual/webapp.html -->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j2.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+    </listener>
+
+    <!-- Since Spring 4.2.1 the Log4jConfigListener is deprecated
+         in favor of Apache Log4j 2 Log4jServletContextListener -->
+    <!--
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    -->
+
+    <!-- Delete directive whitespaces in html pages generated from jsp.
+         You need at least 2.5 version of web.xml to get JSP 2.1 worked
+         to support <trim-directive-whitespaces> property -->
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <trim-directive-whitespaces>true</trim-directive-whitespaces>
+        </jsp-property-group>
+    </jsp-config>
+
+</web-app>

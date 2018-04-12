@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Log4j 2 configuration file for output into console -->
+
+<configuration status="INFO">
+
+<appenders>
+    <console name="console" target="SYSTEM_OUT">
+        <patternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+    </console>
+</appenders>
+
+<loggers>
+    <root level="debug" additivity="false">
+        <appenderRef ref="console" />
+    </root>
+</loggers>
+
+</configuration>
